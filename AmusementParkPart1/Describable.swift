@@ -16,11 +16,11 @@ extension AccessPermission: Describable {
     func description() -> String {
         switch self {
         case .areaAccess(let area):
-            return "Area Access: \(area.rawValue)"
+            return "Area Access: \(area)"
         case .rideAccess(let priority):
             return "Ride Access: \(priority)"
         case .discountAccess(let discount, let amount):
-            return "Discount: \(discount.rawValue) \(amount)%"
+            return "Discount: \(discount) \(amount)%"
         }
     }
 }

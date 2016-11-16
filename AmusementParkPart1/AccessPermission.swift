@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Area: String {
+enum Area {
     case amusements
     case kitchen
     case rideControl
@@ -16,12 +16,12 @@ enum Area: String {
     case office
 }
 
-enum RidePriority: String {
+enum RidePriority {
     case standard
     case skipLines
 }
 
-enum Discount: String {
+enum Discount {
     case food
     case merchandise
 }
