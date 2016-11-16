@@ -8,10 +8,14 @@
 
 import Foundation
 
+// protocol that forces anything adopting it to be able to return
+// a String representing its details
 protocol Describable {
     func description() -> String
 }
 
+// extending our AccessPermission enumeration to conform to
+// the Describable protocol
 extension AccessPermission: Describable {
     func description() -> String {
         switch self {

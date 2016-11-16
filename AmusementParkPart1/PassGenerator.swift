@@ -10,10 +10,13 @@ import Foundation
 
 class PassGenerator {
     
+    // errors thrown by the PassGenerator processing
     enum PassGeneratorError: Error {
         case missingInformation(String), doesNotQualify(String)
     }
-        
+    
+    // static method that returns the AccessPermissions associated with the specified
+    // EntrantType
     static func getAccessPermissions(for entrantType: EntrantType) -> [AccessPermission] {
         
         switch entrantType {
@@ -41,6 +44,8 @@ class PassGenerator {
         }
     }
     
+    // static method that returns a pass based on the provided information, but throws
+    // errors when certain validations are not met
     static func generatePass(applicant: ApplicantDetails, entrantType: EntrantType) throws -> Pass {
         
         switch entrantType {
@@ -89,6 +94,6 @@ class PassGenerator {
             }
         }
         
-        return Pass(permissions: getAccessPermissions(for: entrantType), entrant: applicant)
+        return Pass(permissions: getAccessPermissions(for: entrantType), entrant: applicant, entrantType: entrantType)
     }
 }

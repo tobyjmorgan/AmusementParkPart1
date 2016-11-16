@@ -46,6 +46,10 @@ class ViewController: UIViewController {
                 print("Wait in line please")
             }
             
+            if pass.swipe().contains(.kitchen) {
+                print("This person has access to the kitchen")
+            }
+            
             print("Food Discount: \(pass.swipe(discount: .food))")
             print("Merchandise Discount: \(pass.swipe(discount: .merchandise))")
             
