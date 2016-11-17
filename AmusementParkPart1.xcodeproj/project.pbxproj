@@ -21,6 +21,9 @@
 		6B5C20C31DDD10AB0087D031 /* PassGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5C20C21DDD10AB0087D031 /* PassGenerator.swift */; };
 		6B5C20C51DDD10D90087D031 /* Pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5C20C41DDD10D90087D031 /* Pass.swift */; };
 		6B5C20C71DDD11D30087D031 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5C20C61DDD11D30087D031 /* DateHelper.swift */; };
+		6B7ECF941DDD60D40063FDCA /* AccessDenied.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6B7ECF921DDD60D40063FDCA /* AccessDenied.wav */; };
+		6B7ECF951DDD60D40063FDCA /* AccessGranted.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6B7ECF931DDD60D40063FDCA /* AccessGranted.wav */; };
+		6B7ECF971DDD62E80063FDCA /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECF961DDD62E80063FDCA /* SoundManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		6B5C20C21DDD10AB0087D031 /* PassGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassGenerator.swift; sourceTree = "<group>"; };
 		6B5C20C41DDD10D90087D031 /* Pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pass.swift; sourceTree = "<group>"; };
 		6B5C20C61DDD11D30087D031 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		6B7ECF921DDD60D40063FDCA /* AccessDenied.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = AccessDenied.wav; sourceTree = "<group>"; };
+		6B7ECF931DDD60D40063FDCA /* AccessGranted.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = AccessGranted.wav; sourceTree = "<group>"; };
+		6B7ECF961DDD62E80063FDCA /* SoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +119,10 @@
 			children = (
 				6B5C208B1DDD0EDB0087D031 /* AppDelegate.swift */,
 				6B5C208D1DDD0EDB0087D031 /* ViewController.swift */,
+				6B7ECF961DDD62E80063FDCA /* SoundManager.swift */,
 				6B5C20C81DDD11D70087D031 /* HomeGrown */,
 				6B5C20C11DDD10680087D031 /* Model */,
+				6B7ECF911DDD60920063FDCA /* Assets */,
 				6B5C208F1DDD0EDB0087D031 /* Main.storyboard */,
 				6B5C20921DDD0EDB0087D031 /* Assets.xcassets */,
 				6B5C20941DDD0EDB0087D031 /* LaunchScreen.storyboard */,
@@ -160,6 +168,15 @@
 				6B5C20C61DDD11D30087D031 /* DateHelper.swift */,
 			);
 			name = HomeGrown;
+			sourceTree = "<group>";
+		};
+		6B7ECF911DDD60920063FDCA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				6B7ECF921DDD60D40063FDCA /* AccessDenied.wav */,
+				6B7ECF931DDD60D40063FDCA /* AccessGranted.wav */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,8 +290,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B5C20961DDD0EDB0087D031 /* LaunchScreen.storyboard in Resources */,
+				6B7ECF951DDD60D40063FDCA /* AccessGranted.wav in Resources */,
 				6B5C20931DDD0EDB0087D031 /* Assets.xcassets in Resources */,
 				6B5C20911DDD0EDB0087D031 /* Main.storyboard in Resources */,
+				6B7ECF941DDD60D40063FDCA /* AccessDenied.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +327,7 @@
 				6B5C20C71DDD11D30087D031 /* DateHelper.swift in Sources */,
 				6B5C20C31DDD10AB0087D031 /* PassGenerator.swift in Sources */,
 				6B5C208C1DDD0EDB0087D031 /* AppDelegate.swift in Sources */,
+				6B7ECF971DDD62E80063FDCA /* SoundManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

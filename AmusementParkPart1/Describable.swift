@@ -28,3 +28,16 @@ extension AccessPermission: Describable {
         }
     }
 }
+
+extension Pass: Describable {
+    func description() -> String {
+        
+        var returnString: String = ""
+        
+        for permission in permissions {
+            returnString += permission.description() + "\n"
+        }
+        
+        return returnString
+    }
+}
