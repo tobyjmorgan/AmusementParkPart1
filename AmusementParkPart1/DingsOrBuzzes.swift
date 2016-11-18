@@ -8,6 +8,7 @@
 
 import Foundation
 
+// protocol that requires two sound playing methods
 protocol DingsOrBuzzes {
     func playDingSound()
     func playBuzzSound()
@@ -15,11 +16,15 @@ protocol DingsOrBuzzes {
 
 extension DingsOrBuzzes {
     func playDingSound() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayDingSound), object: nil)
+        // sending notifications to whoever is listening for them
+        // in this case it will be SoundManager
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.Notifications.notificationPlayDingSound), object: nil)
     }
     
     func playBuzzSound() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayBuzzSound), object: nil)
+        // sending notifications to whoever is listening for them
+        // in this case it will be SoundManager
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.Notifications.notificationPlayBuzzSound), object: nil)
     }
 }
 

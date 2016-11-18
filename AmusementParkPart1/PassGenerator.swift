@@ -25,7 +25,7 @@ class PassGenerator {
             case .classic, .freeChild:
                 return [.areaAccess(.amusements), .rideAccess(.allRides(.standard))]
             case .vip:
-                return [.areaAccess(.amusements), .rideAccess(.allRides(.standard)), .discountAccess(.food, 10), .discountAccess(.food, 20)]
+                return [.areaAccess(.amusements), .rideAccess(.allRides(.skipLines)), .discountAccess(.food, 10), .discountAccess(.food, 20)]
             }
             
         case .employee(let employeeType) :
@@ -58,7 +58,7 @@ class PassGenerator {
                     throw PassGeneratorError.missingInformation("Date of Birth")
                 }
                 
-                guard Date().timeIntervalSince1970 - dob.timeIntervalSince1970 < DateHelper.getTimeInterval(year: 5) else {
+                guard Date().timeIntervalSince1970 - dob.timeIntervalSince1970 < DateHelper.getTimeInterval(numberOfYears: 5) else {
                     throw PassGeneratorError.doesNotQualify("Age exceeds maximum age for Child pass")
                 }
                 

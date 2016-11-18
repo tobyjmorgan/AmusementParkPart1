@@ -8,6 +8,7 @@
 
 import Foundation
 
+// protocol that specifies the parts needed to check birthday
 protocol BirthdayCheckable {
     var firstName: String? { get }
     var dateOfBirth: Date? { get }

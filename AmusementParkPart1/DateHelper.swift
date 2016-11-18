@@ -10,10 +10,12 @@ import Foundation
 
 class DateHelper {
     
-    static func getTimeInterval(year: Int) -> TimeInterval {
-        return TimeInterval(60*60*24*365.2422*Double(year))
+    // quickly calculates the seconds inthe number of years specified
+    static func getTimeInterval(numberOfYears: Int) -> TimeInterval {
+        return TimeInterval(60*60*24*365.2422*Double(numberOfYears))
     }
     
+    // quickly construct a date object using the components specified
     static func getDate(year: Int, month: Int, Day: Int) -> Date? {
         let calendar = Calendar.current
         var components = DateComponents()
@@ -22,10 +24,5 @@ class DateHelper {
         components.day = Day
         
         return calendar.date(from: components)
-    }
-    
-    static func getPastDate(interval: TimeInterval) -> Date {
-        
-        return Date().addingTimeInterval(-1*interval)
     }
 }

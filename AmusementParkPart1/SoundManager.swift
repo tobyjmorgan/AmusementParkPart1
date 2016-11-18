@@ -11,9 +11,11 @@ import AudioToolbox
 
 class SoundManager {
     
-    // create constants for notifications
-    static let notificationPlayDingSound = "notificationPlayDingSound"
-    static let notificationPlayBuzzSound = "notificationPlayBuzzSound"
+    class Notifications {
+        // create constants for notifications
+        static let notificationPlayDingSound = "notificationPlayDingSound"
+        static let notificationPlayBuzzSound = "notificationPlayBuzzSound"
+    }
     
     // sounds
     var dingSound: SystemSoundID = 0
@@ -22,10 +24,11 @@ class SoundManager {
     init() {
         loadSounds()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(playDingSound), name: NSNotification.Name(rawValue: SoundManager.notificationPlayDingSound), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(playBuzzSound), name: NSNotification.Name(rawValue: SoundManager.notificationPlayBuzzSound), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playDingSound), name: NSNotification.Name(rawValue: SoundManager.Notifications.notificationPlayDingSound), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playBuzzSound), name: NSNotification.Name(rawValue: SoundManager.Notifications.notificationPlayBuzzSound), object: nil)
     }
     
+    // load the specified sound
     func loadSound(filename: String, systemSound: inout SystemSoundID) {
         
         if let pathToSoundFile = Bundle.main.path(forResource: filename, ofType: "wav") {
@@ -35,6 +38,7 @@ class SoundManager {
         }
     }
     
+    // load all needed sounds
     func loadSounds() {
         
         loadSound(filename: "AccessGranted", systemSound: &dingSound)

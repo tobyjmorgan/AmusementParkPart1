@@ -22,9 +22,13 @@ class Pass: ReswipeCheckable {
 
     
     
-    
     ////////////////////////////////////
-    // Mark: for protocol CanDoReswipeCheck
+    // Mark: for protocol ReswipeCheckable
+    
+    // N.B. I wanted all this to be captured in an extension to the ReswipeCheckable
+    // protocol as a base implementation, but due to the mutating nature of the
+    // method and that stored properties cannot be added in an extension, I couldn't
+    // make that work. So here it is implemented in Pass
     
     // if the pass is swiped again within 60 seconds, it is considered a reswipe
     let thresholdForReswipe: TimeInterval = 60

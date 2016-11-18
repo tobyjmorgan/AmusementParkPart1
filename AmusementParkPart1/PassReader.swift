@@ -8,115 +8,122 @@
 
 import Foundation
 
+// protocol that specfies the minimum requirements of a swipe result
 protocol SwipeResult {
     var permitted: Bool { get }
+    var message: String { get }
 }
 
-protocol Swipeable {
+// protocol for a PassReader - anything that can swipe a Pass
+protocol PassReader {
     func swipe(pass: Pass) -> SwipeResult
 }
 
-extension Area: Swipeable, DingsOrBuzzes {
+// extensions to some of our AccessPermission stuff so that they can
+// swipe passes and provide results - oh and play Dings or Buzzes
+
+
+extension Area: PassReader, DingsOrBuzzes {
     
     struct AreaSwipeResult: SwipeResult {
-        var permitted: Bool
+        let permitted: Bool
+        let message: String
     }
     
     func swipe(pass: Pass) -> SwipeResult {
-        
+
+        // check for birthday
         pass.entrant.checkBirthday()
         
-        guard !pass.isTryingToReswipe() else {
-            playBuzzSound()
-            print("Sorry - this pass has already been used recently. Please try again later.")
-            return AreaSwipeResult(permitted: false)
-        }
-        
+        // look for the permission and return the appropriate result
         for permission in pass.permissions {
             switch permission {
             case .areaAccess(let area):
                 if area == self {
                     playDingSound()
-                    return AreaSwipeResult(permitted: true)
+                    return AreaSwipeResult(permitted: true, message: "Access Granted: please enter the \(area)")
                 }
             default:
                 break
             }
         }
         
+        // did not find that permission
         playBuzzSound()
-        return AreaSwipeResult(permitted: false)
+        return AreaSwipeResult(permitted: false, message: "Access Denied")
     }
 }
 
-extension RideAccess: Swipeable, DingsOrBuzzes {
+extension RideAccess: PassReader, DingsOrBuzzes {
     
     struct RideAccessSwipeResult: SwipeResult {
         let permitted: Bool
+        let message: String
         let priority: RidePriority?
     }
     
     func swipe(pass: Pass) -> SwipeResult {
         
+        // check for birthday
         pass.entrant.checkBirthday()
         
+        // guard against reswipes
         guard !pass.isTryingToReswipe() else {
             playBuzzSound()
-            print("Sorry - this pass has already been used recently. Please try again later.")
-            return RideAccessSwipeResult(permitted: false, priority: nil)
+            return RideAccessSwipeResult(permitted: false, message: "Access Denied: : sorry, this pass has already been used recently. Please try again later.", priority: nil)
         }
 
+        // look for the permission and return the appropriate result
         for permission in pass.permissions {
             switch permission {
             case .rideAccess(let priority):
                 switch priority {
                 case .noRides:
                     playBuzzSound()
-                    return RideAccessSwipeResult(permitted: false, priority: nil)
+                    return RideAccessSwipeResult(permitted: false, message: "Access Denied", priority: nil)
                 case .allRides(let priority):
                     playDingSound()
-                    return RideAccessSwipeResult(permitted: true, priority: priority)
+                    return RideAccessSwipeResult(permitted: true, message: "Access Granted: enjoy your ride!", priority: priority)
                 }
             default:
                 break
             }
         }
         
+        // did not find that permission
         playBuzzSound()
-        return RideAccessSwipeResult(permitted: false, priority: nil)
+        return RideAccessSwipeResult(permitted: false, message: "Access Denied", priority: nil)
     }
 }
 
-extension DiscountType: Swipeable, DingsOrBuzzes {
+extension DiscountType: PassReader, DingsOrBuzzes {
     
     struct DiscountTypeSwipeResult: SwipeResult {
         let permitted: Bool
+        let message: String
         let amount: Int?
     }
     
     func swipe(pass: Pass) -> SwipeResult {
         
+        // check for birthday
         pass.entrant.checkBirthday()
         
-        guard !pass.isTryingToReswipe() else {
-            playBuzzSound()
-            print("Sorry - this pass has already been used recently. Please try again later.")
-            return DiscountTypeSwipeResult(permitted: false, amount: nil)
-        }
-        
+        // look for the permission and return the appropriate result
         for permission in pass.permissions {
             switch permission {
             case .discountAccess(let discount, let amount):
                 if discount == self {
-                    return DiscountTypeSwipeResult(permitted: true, amount: amount)
+                    return DiscountTypeSwipeResult(permitted: true, message: "Discount: \(discount) \(amount)%", amount: amount)
                 }
             default:
                 break
             }
         }
         
+        // did not find that permission
         playBuzzSound()
-        return DiscountTypeSwipeResult(permitted: false, amount: nil)
+        return DiscountTypeSwipeResult(permitted: false, message: "Sorry you do not have a \(self) discount", amount: nil)
     }
 }
 
