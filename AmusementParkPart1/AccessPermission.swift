@@ -28,7 +28,8 @@ enum RidePriority {
 // enumeration that captures access to rides
 enum RideAccess {
     case noRides
-    case allRides(RidePriority)
+    case allRides
+    // could be specific rides or groups of rides added in future
 }
 
 // enumeration that captures the currently available types
@@ -42,5 +43,6 @@ enum DiscountType {
 enum AccessPermission {
     case areaAccess(Area)
     case rideAccess(RideAccess)
+    case ridePriority(RidePriority)
     case discountAccess(DiscountType, Int)
 }

@@ -106,6 +106,31 @@ class ViewController: UIViewController {
             }
 
             //////////////////////////////////////////////////////////////////
+            // Test: try to get on ride
+            let rideResult = RideAccess.allRides.swipe(pass: pass)
+            print(rideResult.message)
+            
+            if rideResult.permitted {
+                // can use the boolean as needed in the system
+                
+                // can also unwrap the ride priority here too
+                if let result = rideResult as? RideAccess.RideAccessSwipeResult,
+                    let priority = result.priority {
+                    
+                    print(priority)
+                }
+            }
+            
+            //////////////////////////////////////////////////////////////////
+            // Test: double swipe to access ride - should deny access
+//            let secondRideResult = RideAccess.allRides.swipe(pass: pass)
+//            print(secondRideResult.message)
+//            
+//            if secondRideResult.permitted {
+//                // can use the boolean as needed in the system
+//            }
+            
+            //////////////////////////////////////////////////////////////////
             // Test: try to get discount on food
             let foodDiscountResult = DiscountType.food.swipe(pass: pass)
             print(foodDiscountResult.message)

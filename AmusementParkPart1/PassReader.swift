@@ -64,6 +64,10 @@ extension RideAccess: PassReader, DingsOrBuzzes {
     
     func swipe(pass: Pass) -> SwipeResult {
         
+        guard self != .noRides else {
+            return RideAccessSwipeResult(permitted: false, message: "Doesn't make sense to try to access no rides", priority: nil)
+        }
+        
         // check for birthday
         pass.entrant.checkBirthday()
         
@@ -73,15 +77,23 @@ extension RideAccess: PassReader, DingsOrBuzzes {
             return RideAccessSwipeResult(permitted: false, message: "Access Denied: : sorry, this pass has already been used recently. Please try again later.", priority: nil)
         }
 
+        var priority: RidePriority? = nil
+        
+        // try to get priority first
+        for permission in pass.permissions {
+            switch permission {
+            case .ridePriority(let ridePriority):
+                priority = ridePriority
+            default:
+                break
+            }
+        }
+        
         // look for the permission and return the appropriate result
         for permission in pass.permissions {
             switch permission {
-            case .rideAccess(let priority):
-                switch priority {
-                case .noRides:
-                    playBuzzSound()
-                    return RideAccessSwipeResult(permitted: false, message: "Access Denied", priority: nil)
-                case .allRides(let priority):
+            case .rideAccess(let access):
+                if access == self {
                     playDingSound()
                     return RideAccessSwipeResult(permitted: true, message: "Access Granted: enjoy your ride!", priority: priority)
                 }
@@ -114,6 +126,7 @@ extension DiscountType: PassReader, DingsOrBuzzes {
             switch permission {
             case .discountAccess(let discount, let amount):
                 if discount == self {
+                    playDingSound()
                     return DiscountTypeSwipeResult(permitted: true, message: "Discount: \(discount) \(amount)%", amount: amount)
                 }
             default:
