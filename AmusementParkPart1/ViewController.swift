@@ -53,31 +53,12 @@ class ViewController: UIViewController {
             let pass = try PassGenerator.generatePass(applicant: applicant, entrantType: entrantType)
             print(pass.description())
             
-            if let priority: RidePriority = pass.swipe() {
-                if priority == .skipLines {
-                    print("Go ahead and skip the line")
-                } else {
-                    print("Wait in line please")
-                }
+            if let result = Area.kitchen.swipe(pass: pass) as? Area.AreaSwipeResult,
+                result.permitted {
+                print("Welcome to the kitchen!")
+            } else {
+                print("Sorry you don't have access to this area")
             }
-            
-            if let priority: RidePriority = pass.swipe() {
-                if priority == .skipLines {
-                    print("Go ahead and skip the line")
-                } else {
-                    print("Wait in line please")
-                }
-            }
-            
-            
-//            let (result, amount) = pass.swipe(discount: .food)
-//            if result {
-//                print("Food Discount: \(amount)")
-//            }
-//
-            print("Food Discount: \(pass.swipe(discount: .food))")
-
-            print("Merchandise Discount: \(pass.swipe(discount: .merchandise))")
             
         } catch PassGenerator.PassGeneratorError.missingInformation(let additionalInfo) {
             print("Missing required information: \(additionalInfo)")

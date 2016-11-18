@@ -8,6 +8,9 @@
 
 import Foundation
 
+// a struct to capture the applicants personal information
+// all optionals since none of these properties are mandatory
+// across the different entrant types
 struct ApplicantDetails {
     var firstName: String?
     var lastName: String?
@@ -18,18 +21,21 @@ struct ApplicantDetails {
     var zipCode: Int?
 }
 
+// enumeration to capture each type of guest
 enum GuestType {
     case classic
     case vip
     case freeChild
 }
 
+// enumeration to capture each type of employee
 enum EmployeeType {
     case hourlyFoodServices
     case hourlyRideServices
     case hourlyMaintenance
 }
 
+// enumeration to capture the different entrant types
 enum EntrantType {
     case guest(GuestType)
     case employee(EmployeeType)

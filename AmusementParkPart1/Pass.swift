@@ -8,214 +8,44 @@
 
 import Foundation
 
-class Pass {
-    
-    static let thresholdForReswipe: TimeInterval = 60
-    
+class Pass: ReswipeCheckable {
+
     let permissions: [AccessPermission]
     let entrant: ApplicantDetails
     let entrantType: EntrantType
-    var lastSwipeTime: Date = Date.distantPast
     
     init(permissions: [AccessPermission], entrant: ApplicantDetails, entrantType: EntrantType) {
         self.permissions = permissions
         self.entrant = entrant
         self.entrantType = entrantType
     }
-    
-    //////////////////////////////////////////////////////////////////////////////
-    // MARK: Birthday Processing
-    
-    func birthdayMessage() {
-        if let name = entrant.firstName {
-            print("Happy Birthday \(name)!")
-        } else {
-            print("Happy Birthday!")
-        }
-    }
-    
-    func isEntrantsBirthday() -> Bool {
-        
-        if let dob = entrant.dateOfBirth {
-            
-            let today = Date()
-            let todayDay = Calendar.current.component(.day, from: today)
-            let todayMonth = Calendar.current.component(.month, from: today)
-            let dobDay = Calendar.current.component(.day, from: dob)
-            let dobMonth = Calendar.current.component(.month, from: dob)
-            
-            if dobDay == todayDay && dobMonth == todayMonth {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
-    func checkBirthday() {
-        
-        if isEntrantsBirthday() {
-            birthdayMessage()
-        }
-    }
-    
-
 
     
     
-    //////////////////////////////////////////////////////////////////////////////
-    // MARK: Reswipe Processing
     
+    ////////////////////////////////////
+    // Mark: for protocol CanDoReswipeCheck
+    
+    // if the pass is swiped again within 60 seconds, it is considered a reswipe
+    let thresholdForReswipe: TimeInterval = 60
+    
+    // setting the last swipe to distant past initially
+    var lastSwipeTime: Date = Date.distantPast
+
     func isTryingToReswipe() -> Bool {
         
-        // capture the last time this pass was swiped for ride access
+        // make a temporary copy of the last time this pass was swiped for ride access
         let tempLastSwipe = lastSwipeTime
         
-        // update lastSwipeTime ready for next check
+        // update lastSwipeTime to now, ready for any future checks
         lastSwipeTime = Date()
         
-        if Date().timeIntervalSince1970 - tempLastSwipe.timeIntervalSince1970 < Pass.thresholdForReswipe {
+        // return true if the interval between this swipe and the last swipe is less than our threshold
+        if Date().timeIntervalSince1970 - tempLastSwipe.timeIntervalSince1970 < thresholdForReswipe {
             
-            print("Sorry, this pass was already recently used for this ride. Please try again later.")
             return true
         }
         
         return false
     }
-    
-    
-    
-    
-    //////////////////////////////////////////////////////////////////////////////
-    // MARK: Swipe Processing
-    
-    ////////////////////////////////////////////////////////////////////
-    // N.B. overloading the swipe method with all the different ways it
-    // can be used
-    
-    // this version of swipe will list all of the permissions associated
-    // with this Pass
-    func swipe() -> [AccessPermission] {
-        
-        checkBirthday()
-        
-        return permissions
-    }
-    
-    // this version of swipe will list all the permitted areas associated
-    // with this Pass
-    func swipe() -> [Area] {
-        
-        checkBirthday()
-        
-        var accessibleAreas: [Area] = []
-        
-        for permission in permissions {
-            
-            switch permission {
-            case .areaAccess(let area):
-                accessibleAreas.append(area)
-            default:
-                break
-            }
-        }
-        
-        return accessibleAreas
-    }
-    
-    // this version of swipe will return whether the Pass permits access
-    // to the requested area
-    func swipe(toAccess area: Area) -> Bool {
-        
-        checkBirthday()
-        
-        for permission in permissions {
-            
-            switch permission {
-            case .areaAccess(let permittedArea):
-                if area == permittedArea {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayDingSound), object: nil)
-                    return true
-                }
-            default:
-                break
-            }
-        }
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayBuzzSound), object: nil)
-        return false
-    }
-    
-    // this version of swipe will return whether the Pass permits the
-    // AccessPermission specified
-    func swipe(has access: AccessPermission) -> Bool {
-        
-        checkBirthday()
-        
-        for permission in permissions {
-            
-            // This is where the equatable extension gets used.
-            // The definition of what is equatable for an AccessPermission
-            // depends on the enum case in question.
-            // See implementation of == for more clarity
-            if access == permission {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayDingSound), object: nil)
-                return true
-            }
-        }
-
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayBuzzSound), object: nil)
-        return false
-    }
-    
-    // this version of swipe returns the ride priority associated with the Pass
-    func swipe() -> RidePriority? {
-        
-        checkBirthday()
-        
-        if isTryingToReswipe() {
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayBuzzSound), object: nil)
-            
-        } else {
-            
-            for permission in permissions {
-                
-                switch permission {
-                    
-                case .rideAccess(let priority):
-                    return priority
-                    
-                default:
-                    break
-                }
-            }
-        }
-        
-        return nil
-    }
-    
-    // this version of swipe returns the discount amount for the
-    // specified DiscountType
-    func swipe(discount: DiscountType) -> Int {
-        
-        checkBirthday()
-        
-        for permission in permissions {
-            
-            switch permission {
-                
-            case .discountAccess(let actualDiscount, let amount):
-                if discount == actualDiscount {
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayDingSound), object: nil)
-                    return amount
-                }
-            default:
-                break
-            }
-        }
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: SoundManager.notificationPlayBuzzSound), object: nil)
-        return 0
-    }    
 }

@@ -15,8 +15,7 @@ class PassGenerator {
         case missingInformation(String), doesNotQualify(String)
     }
     
-    // static method that returns the AccessPermissions associated with the specified
-    // EntrantType
+    // static method that returns the AccessPermissions associated with the specified EntrantType
     static func getAccessPermissions(for entrantType: EntrantType) -> [AccessPermission] {
         
         switch entrantType {
@@ -24,23 +23,23 @@ class PassGenerator {
         case .guest(let guestType) :
             switch guestType {
             case .classic, .freeChild:
-                return [.areaAccess(.amusements), .rideAccess(.standard)]
+                return [.areaAccess(.amusements), .rideAccess(.allRides(.standard))]
             case .vip:
-                return [.areaAccess(.amusements), .rideAccess(.skipLines), .discountAccess(.food, 10), .discountAccess(.food, 20)]
+                return [.areaAccess(.amusements), .rideAccess(.allRides(.standard)), .discountAccess(.food, 10), .discountAccess(.food, 20)]
             }
             
         case .employee(let employeeType) :
             switch employeeType {
             case .hourlyFoodServices :
-                return [.areaAccess(.amusements), .areaAccess(.kitchen), .rideAccess(.standard), .discountAccess(.food, 15), .discountAccess(.merchandise, 25)]
+                return [.areaAccess(.amusements), .areaAccess(.kitchen), .rideAccess(.allRides(.standard)), .discountAccess(.food, 15), .discountAccess(.merchandise, 25)]
             case .hourlyRideServices :
-                return [.areaAccess(.amusements), .areaAccess(.rideControl), .rideAccess(.standard), .discountAccess(.food, 15), .discountAccess(.merchandise, 25)]
+                return [.areaAccess(.amusements), .areaAccess(.rideControl), .rideAccess(.allRides(.standard)), .discountAccess(.food, 15), .discountAccess(.merchandise, 25)]
             case .hourlyMaintenance :
-                return [.areaAccess(.amusements), .areaAccess(.kitchen), .areaAccess(.rideControl), .areaAccess(.maintenance), .rideAccess(.standard), .discountAccess(.food, 15), .discountAccess(.merchandise, 25)]
+                return [.areaAccess(.amusements), .areaAccess(.kitchen), .areaAccess(.rideControl), .areaAccess(.maintenance), .rideAccess(.allRides(.standard)), .discountAccess(.food, 15), .discountAccess(.merchandise, 25)]
             }
             
         case .manager :
-            return [.areaAccess(.amusements), .areaAccess(.kitchen), .areaAccess(.rideControl), .areaAccess(.maintenance), .areaAccess(.office), .rideAccess(.standard), .discountAccess(.food, 25), .discountAccess(.merchandise, 25)]
+            return [.areaAccess(.amusements), .areaAccess(.kitchen), .areaAccess(.rideControl), .areaAccess(.maintenance), .areaAccess(.office), .rideAccess(.allRides(.standard)), .discountAccess(.food, 25), .discountAccess(.merchandise, 25)]
         }
     }
     
