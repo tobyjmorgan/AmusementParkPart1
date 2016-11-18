@@ -24,7 +24,7 @@
 		6B7ECF951DDD60D40063FDCA /* AccessGranted.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6B7ECF931DDD60D40063FDCA /* AccessGranted.wav */; };
 		6B7ECF971DDD62E80063FDCA /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECF961DDD62E80063FDCA /* SoundManager.swift */; };
 		6B7ECF9B1DDE3D480063FDCA /* BirthdayCheckable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECF9A1DDE3D480063FDCA /* BirthdayCheckable.swift */; };
-		6B7ECF9D1DDE3EB30063FDCA /* CanSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECF9C1DDE3EB30063FDCA /* CanSwipe.swift */; };
+		6B7ECF9D1DDE3EB30063FDCA /* Swipeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECF9C1DDE3EB30063FDCA /* Swipeable.swift */; };
 		6B7ECF9F1DDE80C70063FDCA /* DingsOrBuzzes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECF9E1DDE80C70063FDCA /* DingsOrBuzzes.swift */; };
 		6B7ECFA21DDEB5CF0063FDCA /* ReswipeCheckable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECFA11DDEB5CF0063FDCA /* ReswipeCheckable.swift */; };
 /* End PBXBuildFile section */
@@ -70,7 +70,7 @@
 		6B7ECF931DDD60D40063FDCA /* AccessGranted.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = AccessGranted.wav; sourceTree = "<group>"; };
 		6B7ECF961DDD62E80063FDCA /* SoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		6B7ECF9A1DDE3D480063FDCA /* BirthdayCheckable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdayCheckable.swift; sourceTree = "<group>"; };
-		6B7ECF9C1DDE3EB30063FDCA /* CanSwipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanSwipe.swift; sourceTree = "<group>"; };
+		6B7ECF9C1DDE3EB30063FDCA /* Swipeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swipeable.swift; sourceTree = "<group>"; };
 		6B7ECF9E1DDE80C70063FDCA /* DingsOrBuzzes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DingsOrBuzzes.swift; sourceTree = "<group>"; };
 		6B7ECFA11DDEB5CF0063FDCA /* ReswipeCheckable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReswipeCheckable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,7 +164,7 @@
 				6B5C20BD1DDD100D0087D031 /* Describable.swift */,
 				6B5C20C21DDD10AB0087D031 /* PassGenerator.swift */,
 				6B5C20C41DDD10D90087D031 /* Pass.swift */,
-				6B7ECF9C1DDE3EB30063FDCA /* CanSwipe.swift */,
+				6B7ECF9C1DDE3EB30063FDCA /* Swipeable.swift */,
 				6B7ECFA11DDEB5CF0063FDCA /* ReswipeCheckable.swift */,
 			);
 			name = Model;
@@ -338,7 +338,7 @@
 				6B7ECF9F1DDE80C70063FDCA /* DingsOrBuzzes.swift in Sources */,
 				6B5C20BE1DDD100D0087D031 /* Describable.swift in Sources */,
 				6B5C20BC1DDD0FDE0087D031 /* AccessPermission.swift in Sources */,
-				6B7ECF9D1DDE3EB30063FDCA /* CanSwipe.swift in Sources */,
+				6B7ECF9D1DDE3EB30063FDCA /* Swipeable.swift in Sources */,
 				6B5C208E1DDD0EDB0087D031 /* ViewController.swift in Sources */,
 				6B5C20C51DDD10D90087D031 /* Pass.swift in Sources */,
 				6B5C20BA1DDD0FA80087D031 /* PassApplication.swift in Sources */,
